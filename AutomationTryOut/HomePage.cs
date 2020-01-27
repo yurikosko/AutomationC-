@@ -1,25 +1,38 @@
 ﻿using System;
+using OpenQA.Selenium;
 
 namespace AutomationTryOut
 {
     internal class HomePage
     {
-        internal object isVisible;
-        private IWebDrov driver;
-
-        public HomePage(object driver)
+        public bool isVisible
         {
-            this.driver = driver;
+            get
+            {
+                return Driver.Title.Contains("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more");
+            }
+            set { }
+        }
+        private IWebDriver Driver { get; set; }
+
+
+        public HomePage(IWebDriver driver)
+        {
+            this.Driver = driver;
         }
 
         internal void GoTo()
         {
-            throw new NotImplementedException();
+            Driver.Navigate().GoToUrl("https://www.amazon.com/");
         }
 
         internal searchResultsPage FillOutFormAndSubmit(string v)
         {
-            throw new NotImplementedException();
+            Driver.FindElement(By.XPath("//input[@id='twotabsearchtextbox']")).SendKeys(v);
+            Driver.FindElement(By.XPath("//input[@type='submit']")).Click();
+            return new searchResultsPage(Driver);
         }
+
+        
     }
 }
