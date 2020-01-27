@@ -3,24 +3,20 @@ using OpenQA.Selenium;
 
 namespace AutomationTryOut
 {
-    internal class HomePage
+    internal class HomePage : BasePage
     {
-        public bool isVisible
-        {
-            get
-            {
-                return Driver.Title.Contains("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more");
-            }
-            set { }
-        }
-        private IWebDriver Driver { get; set; }
+
+        public HomePage(IWebDriver driver) : base(driver) { }
+
+        public bool isVisible =>  Driver.Title.Contains("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more");
+
+        public IWebElement searchTextBox => Driver.FindElement(By.XPath("//input[@id='twotabsearchtextbox']"));
+
+        public IWebElement searchButton => Driver.FindElement(By.XPath("//input[@type='submit']"));
 
 
-        public HomePage(IWebDriver driver)
-        {
-            this.Driver = driver;
-        }
 
+     
         internal void GoTo()
         {
             Driver.Navigate().GoToUrl("https://www.amazon.com/");
@@ -28,8 +24,8 @@ namespace AutomationTryOut
 
         internal searchResultsPage FillOutFormAndSubmit(string v)
         {
-            Driver.FindElement(By.XPath("//input[@id='twotabsearchtextbox']")).SendKeys(v);
-            Driver.FindElement(By.XPath("//input[@type='submit']")).Click();
+            searchTextBox.SendKeys(v);
+            searchButton.Click();
             return new searchResultsPage(Driver);
         }
 

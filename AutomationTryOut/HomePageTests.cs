@@ -20,7 +20,7 @@ namespace AutomationTryOut
 
         [Test]
         [Category("HomePage")]
-        public void TestMethod1()
+        public void TestSearchonHomePage()
         {
             Driver = GetChromeDriver();
             var homePage = new HomePage(Driver);
@@ -28,9 +28,8 @@ namespace AutomationTryOut
             Assert.That(homePage.isVisible,Is.True);
             var searchResultsPage = homePage.FillOutFormAndSubmit("macbook");
             Assert.That(searchResultsPage.isVisible,Is.True);
-
-            
-
+            Driver.Close();
+            Driver.Quit();
         }
     }
 }
