@@ -23,6 +23,7 @@ namespace AmazonAutomation
         {
 
             Driver = GetChromeDriver();
+            Driver.Manage().Window.FullScreen();
         }
 
         [TearDown] public void CleanUp()
@@ -44,7 +45,7 @@ namespace AmazonAutomation
            
         }
 
-        /// Amazon requires OTP code upon sig
+        /// Amazon kinda understands that automated test software is logging in and requires OTP code upon sign up. Won't work
         [Test]
         [Category("HomePageTests")]
         public void SignInWithValidCredentialsTest()
